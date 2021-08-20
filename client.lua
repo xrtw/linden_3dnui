@@ -15,9 +15,10 @@ end
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		sleep = 500
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		local isDrawing = false
+		
 		for k,v in ipairs(Config.List) do
 			if not isDrawing then
 				local distance = GetDistanceBetweenCoords(playerCoords, v.coords)
@@ -26,5 +27,11 @@ Citizen.CreateThread(function()
 			end
 		end
 		DrawTextNUI(drawCoords, drawText, isDrawing)
+		if isDrawing then 
+			sleep = 1 
+		else 
+			sleep = 500
+		end
+		Citizen.Wait(sleep)
 	end
 end)
